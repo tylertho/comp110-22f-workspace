@@ -2,10 +2,13 @@
 
 __author__: str = "730488308"
 
+
 def all(values: list[int], number: int) -> bool:
     """Checking to see if all values in a list match a single integer."""
     i: int = 0
     match: bool = True
+    if i == len(values):
+        return False
     while i < len(values):
         if values[i] == number:
             match = True
@@ -14,6 +17,7 @@ def all(values: list[int], number: int) -> bool:
             return match
         i += 1
     return match
+
 
 def max(data: list[int]) -> int:
     """Returning the maximum value from a dataset."""
@@ -24,6 +28,7 @@ def max(data: list[int]) -> int:
             maximum = data[i]
         i += 1
     return maximum
+
 
 def is_equal(inputs_1: list[int], inputs_2: list[int]) -> bool:
     """Checking to see if all the values in one list are equal to the exact values in another list."""
@@ -38,5 +43,5 @@ def is_equal(inputs_1: list[int], inputs_2: list[int]) -> bool:
         else:
             match = False
             return match
-        i+= 1
+        i += 1
     return match
