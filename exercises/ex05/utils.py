@@ -17,7 +17,11 @@ def only_evens(int_list: list[int]) -> list[int]:
 def concat(firstlist: list[int], secondlist: list[int]) -> list[int]:
     """Concatenating two lists of integers."""
     i: int = 0
-    full_list: list[int] = firstlist
+    full_list: list[int] = []
+    while i < len(firstlist):
+        full_list.append(firstlist[i])
+        i += 1
+    i = 0
     while i < len(secondlist):
         full_list.append(secondlist[i])
         i += 1
@@ -26,8 +30,15 @@ def concat(firstlist: list[int], secondlist: list[int]) -> list[int]:
 
 def sub(mainlist: list[int], startindex: int, endindex: int) -> list[int]:
     """Forming a new list of integers between the starting and ending indices."""
-    i: int = startindex
+    i: int = 0
     new_list: list[int] = []
+    if startindex < 0:
+        startindex = 0
+    if endindex > len(mainlist):
+        endindex = len(mainlist)
+    if endindex == 0:
+        return new_list
+    i = startindex
     while i < len(mainlist):
         new_list.append(mainlist[i])
         i += 1
