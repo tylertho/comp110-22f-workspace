@@ -9,7 +9,6 @@ from random import randint
 points: int = 0
 player: str = ""
 current: str = ""
-current2: list[int, str]
 # I was looking to do more with this tuple but I don't have time :/. I could've used just a list or dictionary
 dam_type = tuple[int, str, str, int]
 
@@ -48,18 +47,26 @@ def main() -> None:
     global c_user_pokemon_status
     global t_user_pokemon_status
     global m_user_pokemon_status
+    global current
+
     greet()
+
+    print("For your starter pokemon, you may choose Charizard, Tyranitar, or Metagross.")
+    starter: int = int(input("Type 1 for Charizard," + FIRE_TYPE + DRAGON_TYPE + ", 2 for Tyranitar," + ROCK_TYPE + DARK_TYPE + ", or 3 for Metagross," + PSYCHIC_TYPE + STEEL_TYPE + ":"))
+
+    if starter == 1:
+        current = "Charizard" + FIRE_TYPE + DRAGON_TYPE
+    elif starter == 2:
+        current = "Tyranitar" + ROCK_TYPE + DARK_TYPE
+    elif starter == 3:
+        current = "Metagross" + PSYCHIC_TYPE + STEEL_TYPE
+    print(f"\nGreat, you have selected {current} as your starter pokemon!")
+
     battle_choice: int = encounter()
 
     while all_user_pokemon_status is True:
         if battle_choice == 1:
             current_user_pokemon: bool = path1()
-            # if current == "charizard": #"Charizard" + FIRE_TYPE + DRAGON_TYPE
-            #     c_user_pokemon_status = path1(current)
-            # if current == "tyranitar": #"Tyranitar" + ROCK_TYPE + DARK_TYPE:
-            #     t_user_pokemon_status = path1(current)
-            # if current == "metagross": #"Metagross" + PSYCHIC_TYPE + STEEL_TYPE:
-            #     m_user_pokemon_status = path1(current)
         if battle_choice == 2 or current_user_pokemon is False:
             path2()
         if battle_choice == 3:
@@ -79,18 +86,8 @@ def greet() -> None:
     """Having the user start the game."""
     global player
     global current
-    player = input("Hello, new Pokemon Trainer! What would you like to go by: ")
+    player = input("Hello, new Pokemon Trainer! What would you like to go by? ")
     print(f"\nWelcome, {player}! To begin your journey, you must choose a pokemon to start with.")
-    print("For your starter pokemon, you may choose Charizard, Tyranitar, or Metagross.")
-    starter: int = int(input("Type 1 for Charizard," + FIRE_TYPE + DRAGON_TYPE + ", 2 for Tyranitar," + ROCK_TYPE + DARK_TYPE + ", or 3 for Metagross," + PSYCHIC_TYPE + STEEL_TYPE + ":"))
-
-    if starter == 1:
-        current = "charizard" # "Charizard" + FIRE_TYPE + DRAGON_TYPE
-    elif starter == 2:
-        current = "tyranitar"# "Tyranitar" + ROCK_TYPE + DARK_TYPE
-    elif starter == 3:
-        current = "metagross" # "Metagross" + PSYCHIC_TYPE + STEEL_TYPE
-    print(f"\nGreat, you have selected {current} as your starter pokemon!")
 
     
 def encounter() -> int:
@@ -106,7 +103,6 @@ def new_turn() -> int:
     new_choice: int = int(input("You may choose a new battle choice: "))
     return new_choice
 
-    
 
 def path1() -> bool:
     """The first option: attack."""
@@ -169,8 +165,8 @@ def path1() -> bool:
 
     while all_user_pokemon_status is True:
         if opp_pokemon_status is False:
-            opp_random: int = randint(1, 3)
-            rand_move: int = randint(1, 2)
+            opp_random = randint(1, 3)
+            rand_move = randint(1, 2)
             if 1 in opp_pokemon and opp_random == 1:
                 opp_move = {
                     1: "Fire Fang",
@@ -183,7 +179,7 @@ def path1() -> bool:
                 opp_move = {
                     1: "Air Slash",
                     2: "Steel Wing"
-               }
+                }
                 opp_damage = scizor(rand_move)
                 old_opp_health = s_health
                 new_opp_health = old_opp_health
@@ -197,7 +193,7 @@ def path1() -> bool:
                 new_opp_health = old_opp_health
             opp_pokemon_status = True
 
-        if current == "charizard":
+        if current == "Charizard" + FIRE_TYPE + DRAGON_TYPE:
             if c_user_pokemon_status is True:
                 old_user_health = c_health
                 if user_attack_status is False:
@@ -208,9 +204,11 @@ def path1() -> bool:
                     3: "Steel Wing",
                     4: "Dragon Claw"
                 }
-                print(f"\nYou may choose between four moves to attack: ")
+                print("\nYou may choose between four moves to attack: ")
                 print("Flamethrower, Fire Blast, Steel Wing, or Dragon Claw.")
                 user_choice = int(input("Type 1 for Flamethrower, 2 for Fire Blast, 3 for Steel Wing, or 4 for Dragon Claw: "))
+                while user_choice != 1 and user_choice != 2 and user_choice != 3 and user_choice != 4:
+                    user_choice = int(input("Sorry, that input was not between 1 and 4. Try again: "))
                 user_damage = charizard(user_choice)
                 print(f"\nYou have chosen {user_move[user_choice]}!")
                 new_opp_health -= user_damage
@@ -235,7 +233,7 @@ def path1() -> bool:
                     print(f"{opp_pokemon[opp_random]} has fainted! The opponent will now choose another pokemon to use in battle!")
                     print(f"You have defeated {points} pokemon so far!")
 
-        if current == "tyranitar":
+        if current == "Tyranitar" + ROCK_TYPE + DARK_TYPE:
             if t_user_pokemon_status is True:
                 old_user_health = t_health
                 if user_attack_status is False:
@@ -246,9 +244,11 @@ def path1() -> bool:
                     3: "Rock Slide",
                     4: "Dark Pulse"
                 }
-                print(f"\nYou may choose between four moves to attack: ")
+                print("\nYou may choose between four moves to attack: ")
                 print("Earthquake, Ice Fang, Rock Slide, or Dark Pulse.")
                 user_choice = int(input("Type 1 for Earthquake, 2 for Ice Fang, 3 for Rock Slide, or 4 for Dark Pulse: "))
+                while user_choice != 1 and user_choice != 2 and user_choice != 3 and user_choice != 4:
+                    user_choice = int(input("Sorry, that input was not between 1 and 4. Try again: "))
                 user_damage = tyranitar(user_choice)
                 print(f"\nYou have chosen {user_move[user_choice]}!")
                 new_opp_health -= user_damage
@@ -273,7 +273,7 @@ def path1() -> bool:
                     print(f"{opp_pokemon[opp_random]} has fainted! The opponent will now choose another pokemon to use in battle!")
                     print(f"You have defeated {points} pokemon so far!")
 
-        if current == "metagross":
+        if current == "Metagross" + PSYCHIC_TYPE + STEEL_TYPE:
             if m_user_pokemon_status is True:
                 old_user_health = m_health
                 if user_attack_status is False:
@@ -284,9 +284,11 @@ def path1() -> bool:
                     3: "Flash Cannon",
                     4: "Brick Break"
                 }
-                print(f"\nYou may choose between four moves to attack: ")
+                print("\nYou may choose between four moves to attack: ")
                 print("Psychic, Shadow Ball, Flash Cannon, or Brick Break.")
                 user_choice = int(input("Type 1 for Psychic, 2 for Shadow Ball, 3 for Flash Cannon, or 4 for Brick Break: "))
+                while user_choice != 1 and user_choice != 2 and user_choice != 3 and user_choice != 4:
+                    user_choice = int(input("Sorry, that input was not between 1 and 4. Try again: "))
                 user_damage = metagross(user_choice)
                 print(f"\nYou have chosen {user_move[user_choice]}!")
                 new_opp_health -= user_damage
@@ -313,19 +315,21 @@ def path1() -> bool:
     
         if c_user_pokemon_status is False and t_user_pokemon_status is False and m_user_pokemon_status is False:
             all_user_pokemon_status = False
+    
+    if all_user_pokemon_status is False:
+        return False
 
 
-        
 def path2() -> None:
     """The second option: switch pokemon."""
     global current
-    if current == "charizard":
+    if current == "Charizard" + FIRE_TYPE + DRAGON_TYPE:
         path2_charizard()
         return None
-    if current == "tyranitar":
+    if current == "Tyranitar" + ROCK_TYPE + DARK_TYPE:
         path2_tyranitar()
         return None
-    if current == "metagross":
+    if current == "Metagross" + PSYCHIC_TYPE + STEEL_TYPE:
         path2_metagross()
         return None
 
@@ -333,75 +337,72 @@ def path2() -> None:
 def path2_charizard() -> None:
     """Switching from Charizard if current."""
     global current
-    # if current == "charizard": # + FIRE_TYPE + DRAGON_TYPE: # and (t_user_pokemon_status is True or m_user_pokemon_status is True):
     if t_user_pokemon_status is True and m_user_pokemon_status is True:
         current_int = int(input("Type 2 to switch to Tyranitar or 3 to switch to Metagross: "))
         if current_int == 2:
-            current = "tyranitar" # + ROCK_TYPE + DARK_TYPE
+            current = "Tyranitar" + ROCK_TYPE + DARK_TYPE
             return None
         if current_int == 3:
-            current = "metagross" # + PSYCHIC_TYPE + STEEL_TYPE
+            current = "Metagross" + PSYCHIC_TYPE + STEEL_TYPE
             return None
     else:
         if t_user_pokemon_status is True:
             current_int = int(input("Type 2 to switch to Tyranitar: "))
             if current_int == 2:
-                current = "tyranitar" # + PSYCHIC_TYPE + STEEL_TYPE
+                current = "Tyranitar" + ROCK_TYPE + DARK_TYPE
                 return None
         if m_user_pokemon_status is True:
             current_int = int(input("Type 3 to switch to Metagross: "))
             if current_int == 3:
-                current =  "metagross" # + ROCK_TYPE + DARK_TYPE
+                current = "Metagross" + PSYCHIC_TYPE + STEEL_TYPE
                 return None
 
 
 def path2_tyranitar() -> None:
     """Switching from Tyranitar if current."""
     global current
-    # if current == "tyranitar": # + ROCK_TYPE + DARK_TYPE: # and (c_user_pokemon_status is True and m_user_pokemon_status is True):
     if c_user_pokemon_status is True and m_user_pokemon_status is True:
         current_int = int(input("Type 1 to switch to Charizard or 3 to switch to Metagross: "))
         if current_int == 1:
-            current = "charziard" # + FIRE_TYPE + DRAGON_TYPE
+            current = "Charizard" + FIRE_TYPE + DRAGON_TYPE
             return None
         if current_int == 3:
-            current = "metagross" # + PSYCHIC_TYPE + STEEL_TYPE
+            current = "Metagross" + PSYCHIC_TYPE + STEEL_TYPE
             return None
     else:
         if c_user_pokemon_status is True:
             current_int = int(input("Type 1 to switch to Charizard: "))
             if current_int == 1:
-                current = "charizard" # + PSYCHIC_TYPE + STEEL_TYPE
+                current = "Charizard" + FIRE_TYPE + DRAGON_TYPE
                 return None
         if m_user_pokemon_status is True:
             current_int = int(input("Type 3 to switch to Metagross: "))
             if current_int == 3:
-                current = "metagross" # + FIRE_TYPE + DRAGON_TYPE
+                current = "Metagross" + PSYCHIC_TYPE + STEEL_TYPE
                 return None
 
 
 def path2_metagross() -> None:
     """Switching from Metagross if current."""
     global current
-    # if current == "metagross": # + PSYCHIC_TYPE + STEEL_TYPE: # and c_user_pokemon_status is True and t_user_pokemon_status is True:
     if c_user_pokemon_status is True and t_user_pokemon_status is True:
         current_int: int = int(input("Type 1 to switch to Charizard or 2 to switch to Tyranitar: "))
         if current_int == 1:
-            current = "charziard" # + FIRE_TYPE + DRAGON_TYPE
+            current = "Charizard" + FIRE_TYPE + DRAGON_TYPE
             return None
         elif current_int == 2:
-            current =  "tyranitar" # + ROCK_TYPE + DARK_TYPE
+            current = "Tyranitar" + ROCK_TYPE + DARK_TYPE
             return None
     else:
         if c_user_pokemon_status is True:
             current_int = int(input("Type 1 to switch to Charizard: "))
             if current_int == 1:
-                current = "charizard" # + FIRE_TYPE + DRAGON_TYPE
+                current = "Charizard" + FIRE_TYPE + DRAGON_TYPE
                 return None
         elif t_user_pokemon_status is True:
             current_int = int(input("Type 2 to switch to Tyranitar: "))
             if current_int == 2:
-                current =  "tyranitar" # + FIRE_TYPE + DRAGON_TYPE
+                current = "Tyranitar" + ROCK_TYPE + DARK_TYPE
                 return None
 
 
@@ -426,7 +427,7 @@ def charizard(x: int) -> int:
         return fire_blast[0]
     elif x == steel_wing[3]:
         return steel_wing[0]
-    elif x == dragon_claw[3]:
+    else:
         return dragon_claw[0]
 
 
@@ -443,7 +444,7 @@ def tyranitar(x: int) -> int:
         return ice_fang[0]
     elif x == rock_slide[3]:
         return rock_slide[0]
-    elif x == dark_pulse[3]:
+    else:
         return dark_pulse[0]
 
 
@@ -460,7 +461,7 @@ def metagross(x: int) -> int:
         return shadow_ball[0]
     elif x == flash_cannon[3]:
         return flash_cannon[0]
-    elif x == brick_break[3]:
+    else:
         return brick_break[0]
 
 
@@ -473,7 +474,7 @@ def arcanine(x: int) -> int:
 
     if x == fire_fang[3]:
         return fire_fang[0]
-    elif x == crunch[3]:
+    else:
         return crunch[0]
 
 
@@ -485,7 +486,7 @@ def scizor(x: int) -> int:
 
     if x == air_slash[3]:
         return air_slash[0]
-    elif x == steel_wing[3]:
+    else:
         return steel_wing[0]
 
 
@@ -497,7 +498,7 @@ def honchkrow(x: int) -> int:
 
     if x == dark_pulse[3]:
         return dark_pulse[0]
-    elif x == peck[3]:
+    else:
         return peck[0]
 
 
