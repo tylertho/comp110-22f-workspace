@@ -207,6 +207,7 @@ def path1() -> bool:
                 print("\nYou may choose between four moves to attack: ")
                 print("Flamethrower, Fire Blast, Steel Wing, or Dragon Claw.")
                 user_choice = int(input("Type 1 for Flamethrower, 2 for Fire Blast, 3 for Steel Wing, or 4 for Dragon Claw: "))
+                i: int = 0
                 while user_choice != 1 and user_choice != 2 and user_choice != 3 and user_choice != 4:
                     user_choice = int(input("Sorry, that input was not between 1 and 4. Try again: "))
                 user_damage = charizard(user_choice)
