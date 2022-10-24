@@ -8,9 +8,8 @@ def invert(x: dict[str, str]) -> dict[str, str]:
     inverted_dict: dict[str, str] = {}
     for key in x:
         inverted_dict[x[key]] = key
-    # for new_key in inverted_dict:
-    #     if inverted_dict[key] == inverted_dict[key]:
-    #         raise KeyError("Can't have multiple values with same keys.")
+        if x[key] in inverted_dict:
+            raise KeyError("Can't have multiple values with same keys.")
     return inverted_dict
 
 

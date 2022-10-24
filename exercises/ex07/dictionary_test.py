@@ -2,7 +2,6 @@
 
 __author__: str = "730488308"
 
-import pytest
 
 from dictionary import invert
 from dictionary import favorite_color
@@ -42,9 +41,9 @@ def test_favorite_color_edge() -> None:
 def test_favorite_color_use1() -> None:
     """Use 1."""
     color_dict: dict[str, str] = {
-    "tyler": "purple",
-    "chi": "purple",
-    "mom": "blue"
+        "tyler": "purple",
+        "chi": "purple",
+        "mom": "blue"
     }
     assert favorite_color(color_dict) == "purple"
 
@@ -52,10 +51,10 @@ def test_favorite_color_use1() -> None:
 def test_favorite_color_use2() -> None:
     """Use 2."""
     color_dict: dict[str, str] = {
-    "leo": "red",
-    "cy": "red",
-    "willy": "orange",
-    "bro": "orange"
+        "leo": "red",
+        "cy": "red",
+        "willy": "orange",
+        "bro": "orange"
     }
     assert favorite_color(color_dict) == "red"
 
